@@ -109,6 +109,27 @@ function App() {
     }
   }
 
+  // Debut de function reset
+  const reset = () => {
+    setFirstNumber(null);
+    setOperator(null);
+    setSecondNumber(null);
+    setTotal("0");
+  }
+  // Fin de function reset
+
+  const deleteChar = () => {
+    if (secondNumber != null) {
+      setSecondNumber(secondNumber.toString().slice(0, -1));
+    }else if (operator != null) {
+      setOperator(null);
+    }else if (firstNumber != null){
+      setFirstNumber(firstNumber.toString().slice(0, -1));
+    }
+    setTotal(total.toString().slice(0, -1)); 
+  }
+
+
   return <>
     <NavBarComponent />
     {/* <h1>Application</h1>
@@ -131,7 +152,7 @@ function App() {
         </InputGroup>
       </div>
       <div className='col-3 d-flex justify-content-between flex-wrap'>
-        <Button variant="danger" className="col-6">AC</Button>
+        <Button variant="danger" className="col-6" onClick={reset}>AC</Button>
         <Button variant="primary" className="col-3" onClick={() => { setOperator('%'); checkIfOperatorIsInTotal("%") }}>%</Button>
         <Button variant="primary" className="col-3" onClick={() => { setOperator('/'); checkIfOperatorIsInTotal("/") }}>/</Button>
       </div>
@@ -156,11 +177,10 @@ function App() {
       <div className='col-3 d-flex justify-content-between flex-wrap'>
         <Button variant="secondary" className="col-3" onClick={() => { handleChange(0) }}>0</Button>
         <Button variant="secondary" className="col-3" onClick={() => { handleChange('.') }}>.</Button>
-        <Button variant="danger" className="col-3">delete</Button>
+        <Button variant="danger" className="col-3" onClick={deleteChar}>delete</Button>
         <Button variant="success" className="col-3" onClick={calculate}>=</Button>
       </div>
     </div>
-
   </>;
 }
 
